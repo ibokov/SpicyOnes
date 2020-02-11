@@ -20,12 +20,12 @@ USE `SPICYONES` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
   `PepName` VARCHAR(50) NOT NULL,
-  `Pep_ID` CHAR(9) NOT NULL,
+  `Pep_ID` CHAR(8) NOT NULL,
   `Pep_Scoville` INT NOT NULL,
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
   UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE,
-  CONSTRAINT chk_Pep_ID CHECK (pepid like '[0-9][0-9][0-9]-[0-9][0-9][0-9]'));
+  CONSTRAINT chk_Pep_ID CHECK (pepid like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'));
 
 
 -- -----------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   `HS_ID` CHAR(5) NOT NULL,
   `HS_Scoville` INT UNSIGNED NOT NULL,
   `Company_Name` VARCHAR(100) NOT NULL,
-  `Pepper_ID` CHAR(9) NOT NULL,
+  `Pepper_ID` CHAR(8) NOT NULL,
   `Creation_Date` YEAR(4) NULL,
   `SFR` INT NULL DEFAULT 0,
   PRIMARY KEY (`HS_ID`),
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
     REFERENCES `SPICYONES`.`COMPANY` (`Company_Name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]');
+    CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]'));
 
 
 
