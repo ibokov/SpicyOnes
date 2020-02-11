@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
   UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE,
-  -- CONSTRAINT chk_Pep_ID CHECK ('Pep_ID' like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'));
   CONSTRAINT chk_Pep_ID CHECK ('Pep_ID' NOT LIKE '%[^0-9]%'));
 
 -- 
@@ -45,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`COMPANY` (
   `Established_Date` YEAR(4) NOT NULL,
   `Num_HS_Produced` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`Company_Name`));
-
 
 
 -- 
@@ -63,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   INDEX `Pepper_ID_idx` (`Pepper_ID` ASC) VISIBLE,
   INDEX `Company_Name_idx` (`Company_Name` ASC) VISIBLE,
   CONSTRAINT `Pepper_ID`
-    FOREIGN KEY (`Pepper_ID`)
+	FOREIGN KEY (`Pepper_ID`)
     REFERENCES `SPICYONES`.`PEPPER` (`Pep_ID`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
@@ -72,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
     REFERENCES `SPICYONES`.`COMPANY` (`Company_Name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    -- CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]'));
     CONSTRAINT chk_HS_ID CHECK (hs_id NOT LIKE '%[^0-9]%'));
 
 
@@ -91,16 +88,15 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
     ON UPDATE CASCADE);
 
 
-
 -- 
 -- Create Table `SPICYONES`.`EPISODES` Stores data about individual Episodes.
 -- 
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
-  `Episode_ID` INT UNSIGNED NOT NULL CHECK(Episode_ID > 0),
-  `Ep_Name` VARCHAR(250) NOT NULL,
-  `Ep_Airdate` DATE NOT NULL,
-  `Guest_Completion` VARCHAR(10) NULL DEFAULT 'YES',
-  `Season_Number` INT UNSIGNED NOT NULL,
+  `Episode_ID` INT UNSIGNED    NOT NULL CHECK(Episode_ID > 0),
+  `Ep_Name`    VARCHAR(250)    NOT NULL,
+  `Ep_Airdate` DATE            NOT NULL,
+  `Guest_Completion` VARCHAR(10)  NULL DEFAULT 'YES',
+  `Season_Number`    INT UNSIGNED NOT NULL,
   PRIMARY KEY (`Episode_ID`),
   INDEX `Season_Number_idx` (`Season_Number` ASC) VISIBLE,
   CONSTRAINT `Season_Number`
@@ -110,15 +106,14 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
     ON UPDATE CASCADE);
 
 
-
 -- *******************************************************************************************************
 -- Create Table `SPICYONES`.`GUEST` Stores data about each Guest that appeared on HotOnes.
 -- *******************************************************************************************************
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`GUESTS` (
-  `Guest_Name` VARCHAR(50) NOT NULL,
+  `Guest_Name` VARCHAR(50)  NOT NULL,
   `Episode_ID` INT UNSIGNED NOT NULL,
-  `HS_ID_Fail` CHAR(5) NULL DEFAULT NULL,
-  `Profession` VARCHAR(50) NULL DEFAULT NULL,
+  `HS_ID_Fail` CHAR(5)      NULL DEFAULT NULL,
+  `Profession` VARCHAR(50)  NULL DEFAULT NULL,
   PRIMARY KEY (`Guest_Name`, `Episode_ID`),
   INDEX `Episode_ID_idx` (`Episode_ID` ASC) VISIBLE,
   CONSTRAINT `Episode_ID`
@@ -396,11 +391,10 @@ WHERE C.Num_HS_Produced > 1;
 -- Expected: A table that returns the quantity of each profession along with how many have failed and finally a failure percentage. 
 SELECT Profession, Count(Profession) 'Quantity', 
     (SELECT COUNT(HS_ID_FAIL)
-        FROM GUESTS
-            WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession) 'Failures', 
-            CAST(((SELECT COUNT(HS_ID_FAIL)
-                FROM GUESTS
-                    WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession)/Count(Profession))*100 AS DECIMAL(18,2))+'%' as 'Fail Percentage'
+	 FROM GUESTS
+	 WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession) 'Failures', CAST(((SELECT COUNT(HS_ID_FAIL)
+																				  FROM GUESTS
+																				  WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession)/Count(Profession))*100 AS DECIMAL(18,2))+'%' as 'Fail Percentage'
 FROM GUESTS g
 GROUP BY g.Profession;
 
@@ -409,9 +403,9 @@ GROUP BY g.Profession;
 -- Purpose: Show the relationship between fail rate, hot sauce scoville, and pepper scoville. 
 -- Expected: A table that displays fail rate of sauce and the scoville rating of the sauce and main pepper. Ordered by fail rate. 
 SELECT HOTSAUCE.HSNAME AS 'Hot Sauce', 
-    HOTSAUCE.SFR AS 'Hot Sauce Fail Rate', 
-    HOTSAUCE.HS_Scoville AS 'Hot Sauce Scoville', 
-    PEPPER.Pep_Scoville AS 'Constituent Pepper Scoville'
+	   HOTSAUCE.SFR AS 'Hot Sauce Fail Rate', 
+       HOTSAUCE.HS_Scoville AS 'Hot Sauce Scoville', 
+       PEPPER.Pep_Scoville AS 'Constituent Pepper Scoville'
 FROM HOTSAUCE, PEPPER 
 WHERE HOTSAUCE.Pepper_ID = PEPPER.Pep_ID 
 ORDER BY HOTSAUCE.SFR DESC, HOTSAUCE.HS_Scoville DESC;
@@ -422,8 +416,8 @@ ORDER BY HOTSAUCE.SFR DESC, HOTSAUCE.HS_Scoville DESC;
 -- Expected: Return a table showing the average scoville of sauces for each season, most used pepper for each season’s sauces, and number of failures in the season. 
 SELECT E.EPISODE_ID AS Episode_Number, 
        E.GUEST_COMPLETION AS Guest_Completion,
-               G.Guest_Name AS Guest_Name,
-               H.HSName AS Hotsauce_Name
+	   G.Guest_Name AS Guest_Name,
+       H.HSName AS Hotsauce_Name
 FROM EPISODES E JOIN GUESTS G ON E.EPISODE_ID = G.EPISODE_ID
 JOIN HOTSAUCE H ON H.HS_ID = G.HS_ID_FAIL
 WHERE E.Guest_Completion = 'FAIL'; 
