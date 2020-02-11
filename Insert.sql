@@ -52,7 +52,7 @@ Values ('Sriracha', 68202, 2200, 'Huy Fong Foods', 11121442, 1980, 0);
 INSERT INTO HOTSAUCE (HSName, HS_ID, HS_Scoville, Company_Name, Pepper_ID, Creation_Date, SFR)
 Values ('The Last Dab', 10831, 2000000, 'Hot Ones', 71347848, 1991, 0);
 INSERT INTO HOTSAUCE (HSName, HS_ID, HS_Scoville, Company_Name, Pepper_ID, Creation_Date, SFR)
-Values ('Mad Dog 357', 63066, 357000, 'Ashley Food Company', 93031901, 2017, 0);
+Values ('Mad Dog 357', 63066, 357000, 'Ashley Food Company', 93031901, 1991, 0);
 INSERT INTO HOTSAUCE (HSName, HS_ID, HS_Scoville, Company_Name, Pepper_ID, Creation_Date, SFR)
 Values ('Blairs Original Death Sauce with Chipotle', 23789, 30000, 'Blairs Sauce and Snacks', 71016893, 1989, 0);
 INSERT INTO HOTSAUCE (HSName, HS_ID, HS_Scoville, Company_Name, Pepper_ID, Creation_Date, SFR)
@@ -141,7 +141,7 @@ Values (150, '"The Jonas Brothers Burn Up While Eating Spicy Wings"', "2019-05-3
 INSERT INTO EPISODES (Episode_ID, Ep_Name, Ep_Airdate, Guest_Completion, Season_Number)
 Values (172, '"Chance the Rapper Battles Spicy Wings"', "2019-11-21", 'Pass', 10);
 
-Update EPISODES SET Episode_ID = 130 WHERE Episode_ID = 126;
+
 
 -- Inserting GUEST Table.
 
