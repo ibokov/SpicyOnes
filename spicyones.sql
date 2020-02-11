@@ -1,12 +1,13 @@
--- MySQL Workbench Forward Engineering
+-- SQL Script
+/* ********************************
+Project Phase II
+Group 6 (MySQL)
+This SQL Script was tested on MySQL using Azure MySQL server. To run, simply load this script file and run. ********************************
+*/
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema SPICYONES
--- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema SPICYONES
@@ -23,8 +24,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
   `Pep_Scoville` INT NOT NULL,
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
-  UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE)
-ENGINE = InnoDB;
+  UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE,
+  CONSTRAINT chk_Pep_ID CHECK (pepid like '[0-9][0-9][0-9]-[0-9][0-9][0-9]'));
 
 
 -- -----------------------------------------------------
@@ -33,10 +34,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`COMPANY` (
   `Company_Name` VARCHAR(100) NOT NULL,
   `HQ_Location` VARCHAR(50) NOT NULL,
-  `Established_Date` DATETIME NOT NULL,
+  `Established_Date` YEAR(4) NOT NULL,
   `Num_HS_Produced` INT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`Company_Name`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`Company_Name`));
+
 
 
 -- -----------------------------------------------------
@@ -47,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   `HS_ID` CHAR(5) NOT NULL,
   `HS_Scoville` INT UNSIGNED NOT NULL,
   `Company_Name` VARCHAR(100) NOT NULL,
-  `Pepper_ID` CHAR(5) NOT NULL,
-  `Creation_Date` DATETIME NULL,
+  `Pepper_ID` CHAR(9) NOT NULL,
+  `Creation_Date` YEAR(4) NULL,
   `SFR` INT NULL DEFAULT 0,
   PRIMARY KEY (`HS_ID`),
   INDEX `Pepper_ID_idx` (`Pepper_ID` ASC) VISIBLE,
@@ -62,15 +63,16 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
     FOREIGN KEY (`Company_Name`)
     REFERENCES `SPICYONES`.`COMPANY` (`Company_Name`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE,
+    CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]');
+
 
 
 -- -----------------------------------------------------
 -- Table `SPICYONES`.`SEASON`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
-  `Season_Number` INT UNSIGNED NOT NULL,
+  `Season_Number` INT UNSIGNED NOT NULL CHECK(Season_Number < 11),
   `HS_ID` CHAR(5) NOT NULL,
   PRIMARY KEY (`Season_Number`, `HS_ID`),
   INDEX `HS_ID_idx` (`HS_ID` ASC) VISIBLE,
@@ -78,17 +80,17 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
     FOREIGN KEY (`HS_ID`)
     REFERENCES `SPICYONES`.`HOTSAUCE` (`HS_ID`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
+
 
 
 -- -----------------------------------------------------
 -- Table `SPICYONES`.`EPISODES`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
-  `Episode_ID` INT UNSIGNED NOT NULL,
+  `Episode_ID` INT UNSIGNED NOT NULL CHECK(Episode_ID > 0),
   `Ep_Name` VARCHAR(250) NOT NULL,
-  `Ep_Airdate` DATETIME NOT NULL,
+  `Ep_Airdate` DATE NOT NULL,
   `Guest_Completion` VARCHAR(10) NULL DEFAULT 'YES',
   `Season_Number` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`Episode_ID`),
@@ -97,8 +99,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
     FOREIGN KEY (`Season_Number`)
     REFERENCES `SPICYONES`.`SEASON` (`Season_Number`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
+
 
 
 -- -----------------------------------------------------
@@ -115,8 +117,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`GUEST` (
     FOREIGN KEY (`Episode_ID`)
     REFERENCES `SPICYONES`.`EPISODES` (`Episode_ID`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
