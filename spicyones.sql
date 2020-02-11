@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
   UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE,
-  CONSTRAINT chk_Pep_ID CHECK (pepid like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'));
-
+  -- CONSTRAINT chk_Pep_ID CHECK ('Pep_ID' like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'));
+  CONSTRAINT chk_Pep_ID CHECK ('Pep_ID' NOT LIKE '%[^0-9]%'));
 
 -- 
 -- Create Table `SPICYONES`.`COMPANY` Stores data about hot sauce companies. 
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
     REFERENCES `SPICYONES`.`COMPANY` (`Company_Name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]'));
-
+    -- CONSTRAINT chk_HS_ID CHECK (hs_id like '[0-9][0-9][0-9][0-9][0-9]'));
+    CONSTRAINT chk_HS_ID CHECK (hs_id NOT LIKE '%[^0-9]%'));
 
 
 -- 
@@ -144,7 +144,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Insert sample data for PEPPER Table
 -- Summary: store data about different Peppers.
 INSERT INTO PEPPER (PepName, Pep_ID, Pep_Scoville, Pep_Location)
-Values ('Jalapeno', 11121442, 3500, 'Veracruz, Mexico');
+Values ('Jalapeno', '11121442', 3500, 'Veracruz, Mexico');
 INSERT INTO PEPPER (PepName, Pep_ID, Pep_Scoville, Pep_Location)
 Values ('Habanero', 71016893, 250000, 'Yucatan Peninsula, Mexico');
 INSERT INTO PEPPER (PepName, Pep_ID, Pep_Scoville, Pep_Location)
@@ -430,8 +430,9 @@ WHERE E.Guest_Completion = 'FAIL';
 
 
 -- Query 10 
--- Purpose:
--- Expected: 
+-- Purpose: Show the hot sauce that was created the longest time before its appearance on an episode.
+-- Expected: Return a table with one hot sauce and the number of years between its creation and appearance on the episode.
+
 Select DISTINCT HotsauceName, Years_Created_Before_Showcase
 FROM (SELECT h.HSName as 'HotsauceName', CAST(year(e.Ep_Airdate) as SIGNED)- CAST(h.Creation_Date as SIGNED) AS 'Years_Created_Before_Showcase'
 		FROM HOTSAUCE h
