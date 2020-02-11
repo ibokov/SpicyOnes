@@ -106,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
 -- -----------------------------------------------------
 -- Table `SPICYONES`.`GUEST`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`GUEST` (
+CREATE TABLE IF NOT EXISTS `SPICYONES`.`GUESTS` (
   `Guest_Name` VARCHAR(50) NOT NULL,
   `Episode_ID` INT UNSIGNED NOT NULL,
-  `HS_ID_Fail` INT NULL DEFAULT NULL,
+  `HS_ID_Fail` CHAR(5) NULL DEFAULT NULL,
   `Profession` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`Guest_Name`, `Episode_ID`),
   INDEX `Episode_ID_idx` (`Episode_ID` ASC) VISIBLE,
