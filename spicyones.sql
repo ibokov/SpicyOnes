@@ -12,14 +12,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema SPICYONES
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `SPICYONES`;
-USE `SPICYONES`;
+USE `SPICYONES` ;
 
 -- -----------------------------------------------------
 -- Table `SPICYONES`.`PEPPER`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
   `PepName` VARCHAR(50) NOT NULL,
-  `Pep_ID` INT UNSIGNED NOT NULL,
+  `Pep_ID` CHAR(9) NOT NULL,
   `Pep_Scoville` INT NOT NULL,
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
@@ -44,10 +44,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   `HSName` VARCHAR(50) NOT NULL,
-  `HS_ID` INT UNSIGNED NOT NULL,
+  `HS_ID` CHAR(5) NOT NULL,
   `HS_Scoville` INT UNSIGNED NOT NULL,
   `Company_Name` VARCHAR(100) NOT NULL,
-  `Pepper_ID` INT UNSIGNED NOT NULL,
+  `Pepper_ID` CHAR(5) NOT NULL,
   `Creation_Date` DATETIME NULL,
   `SFR` INT NULL DEFAULT 0,
   PRIMARY KEY (`HS_ID`),
@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
   `Season_Number` INT UNSIGNED NOT NULL,
-  `HS_ID` INT UNSIGNED NOT NULL,
+  `HS_ID` CHAR(5) NOT NULL,
   PRIMARY KEY (`Season_Number`, `HS_ID`),
   INDEX `HS_ID_idx` (`HS_ID` ASC) VISIBLE,
   CONSTRAINT `HS_ID`
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
   CONSTRAINT `Season_Number`
     FOREIGN KEY (`Season_Number`)
     REFERENCES `SPICYONES`.`SEASON` (`Season_Number`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
