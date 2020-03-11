@@ -1,7 +1,7 @@
 -- SQL Script
 /* ********************************
 Project Phase II
-Group 6 (MySQL-Version 8.0.19)
+Group 6 (MySQL-Version 5.7)
 This SQL Script was tested on MySQL using Azure MySQL server. To run, simply load this script file and run. ********************************
 */
 
@@ -15,8 +15,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- *****************************************************
 -- Create Schema SPICYONES
 -- *****************************************************
-CREATE SCHEMA IF NOT EXISTS `SPICYONES`;
-USE `SPICYONES` ;
+CREATE SCHEMA IF NOT EXISTS SPICYONES;
+USE SPICYONES ;
 
 
 -- *****************************************************
@@ -24,21 +24,21 @@ USE `SPICYONES` ;
 -- *****************************************************
 
 -- 
--- Create Table `SPICYONES`.`PEPPER` Stores data about Peppers
+-- Create Table `SPICYONES`.PEPPER Stores data about Peppers
 -- 
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`PEPPER` (
+CREATE TABLE IF NOT EXISTS SPICYONES.PEPPER (
   `PepName` VARCHAR(50) NOT NULL,
   `Pep_ID` CHAR(8) NOT NULL,
   `Pep_Scoville` INT NOT NULL,
   `Pep_Location` VARCHAR(50) NULL,
   PRIMARY KEY (`Pep_ID`),
-  UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC) VISIBLE,
+  UNIQUE INDEX `Pep_ID_UNIQUE` (`Pep_ID` ASC),
   CONSTRAINT chk_Pep_ID CHECK ('Pep_ID' NOT LIKE '%[^0-9]%'));
 
 -- 
 -- Create Table `SPICYONES`.`COMPANY` Stores data about hot sauce companies. 
 -- 
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`COMPANY` (
+CREATE TABLE IF NOT EXISTS SPICYONES.COMPANY (
   `Company_Name` VARCHAR(100) NOT NULL,
   `HQ_Location` VARCHAR(50) NOT NULL,
   `Established_Date` YEAR(4) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`COMPANY` (
 -- 
 -- Create Table `SPICYONES`.`HOTSAUCE` Stores data about Hot sauces. 
 -- 
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
+CREATE TABLE IF NOT EXISTS SPICYONES.HOTSAUCE (
   `HSName` VARCHAR(50) NOT NULL,
   `HS_ID` CHAR(5) NOT NULL,
   `HS_Scoville` INT UNSIGNED NOT NULL,
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   `Creation_Date` YEAR(4) NULL,
   `SFR` INT NULL DEFAULT 0,
   PRIMARY KEY (`HS_ID`),
-  INDEX `Pepper_ID_idx` (`Pepper_ID` ASC) VISIBLE,
-  INDEX `Company_Name_idx` (`Company_Name` ASC) VISIBLE,
+  INDEX `Pepper_ID_idx` (`Pepper_ID` ASC),
+  INDEX `Company_Name_idx` (`Company_Name` ASC),
   CONSTRAINT `Pepper_ID`
 	FOREIGN KEY (`Pepper_ID`)
     REFERENCES `SPICYONES`.`PEPPER` (`Pep_ID`)
@@ -76,11 +76,11 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
 -- 
 -- Create Table `SPICYONES`.`SEASON` Stores data about HotOnes Seasons.
 -- 
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
+CREATE TABLE IF NOT EXISTS SPICYONES.SEASON (
   `Season_Number` INT UNSIGNED NOT NULL CHECK(Season_Number < 11),
   `HS_ID` CHAR(5) NOT NULL,
   PRIMARY KEY (`Season_Number`, `HS_ID`),
-  INDEX `HS_ID_idx` (`HS_ID` ASC) VISIBLE,
+  INDEX `HS_ID_idx` (`HS_ID` ASC),
   CONSTRAINT `HS_ID`
     FOREIGN KEY (`HS_ID`)
     REFERENCES `SPICYONES`.`HOTSAUCE` (`HS_ID`)
@@ -91,14 +91,14 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`SEASON` (
 -- 
 -- Create Table `SPICYONES`.`EPISODES` Stores data about individual Episodes.
 -- 
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
+CREATE TABLE IF NOT EXISTS SPICYONES.EPISODES (
   `Episode_ID` INT UNSIGNED    NOT NULL CHECK(Episode_ID > 0),
   `Ep_Name`    VARCHAR(250)    NOT NULL,
   `Ep_Airdate` DATE            NOT NULL,
   `Guest_Completion` VARCHAR(10)  NULL DEFAULT 'YES',
   `Season_Number`    INT UNSIGNED NOT NULL,
   PRIMARY KEY (`Episode_ID`),
-  INDEX `Season_Number_idx` (`Season_Number` ASC) VISIBLE,
+  INDEX `Season_Number_idx` (`Season_Number` ASC),
   CONSTRAINT `Season_Number`
     FOREIGN KEY (`Season_Number`)
     REFERENCES `SPICYONES`.`SEASON` (`Season_Number`)
@@ -109,13 +109,13 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`EPISODES` (
 -- *******************************************************************************************************
 -- Create Table `SPICYONES`.`GUEST` Stores data about each Guest that appeared on HotOnes.
 -- *******************************************************************************************************
-CREATE TABLE IF NOT EXISTS `SPICYONES`.`GUESTS` (
+CREATE TABLE IF NOT EXISTS SPICYONES.GUESTS (
   `Guest_Name` VARCHAR(50)  NOT NULL,
   `Episode_ID` INT UNSIGNED NOT NULL,
   `HS_ID_Fail` CHAR(5)      NULL DEFAULT NULL,
   `Profession` VARCHAR(50)  NULL DEFAULT NULL,
   PRIMARY KEY (`Guest_Name`, `Episode_ID`),
-  INDEX `Episode_ID_idx` (`Episode_ID` ASC) VISIBLE,
+  INDEX `Episode_ID_idx` (`Episode_ID` ASC),
   CONSTRAINT `Episode_ID`
     FOREIGN KEY (`Episode_ID`)
     REFERENCES `SPICYONES`.`EPISODES` (`Episode_ID`)
