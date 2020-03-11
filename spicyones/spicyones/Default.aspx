@@ -6,6 +6,10 @@
         <h1>SpicyOnes</h1>
         <p class="lead">Spicy Ones is a HotSauce database inspired by and designed for the series &quot;Hot Ones&quot;</p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p>&nbsp;</p>
+        <p>
+            <img src="Images/Logo/logo.png" style="margin: 0 auto; width: 80%;" /></p>
+        <p>&nbsp;</p>
     </div>
 
     <div class="row">
