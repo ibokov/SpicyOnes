@@ -8,7 +8,7 @@
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
         <p>&nbsp;</p>
         <p>
-            <img src="Images/Logo/logo.png" style="margin: 0 auto; width: 80%;" /></p>
+            <img src="Images/Logo/logo.png" style="margin: 0 auto; width: 100%;" /></p>
         <p>&nbsp;</p>
     </div>
 
@@ -24,7 +24,8 @@
             </p>
         </div>
         <div class="col-md-4">
-            <h2>Get more libraries</h2>
+            <h2>Cedes Test</h2>
+            <p>UW computer test</p>
             <p>
                 NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
             </p>
