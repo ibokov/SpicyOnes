@@ -16,12 +16,11 @@
         <br />
         <br />
         <br />
+        <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1">
+        </asp:DropDownList>
         <br />
         <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-&nbsp;<asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1">
-        </asp:DropDownList>
-    </form>
+&nbsp;</form>
 </body>
 </html>
