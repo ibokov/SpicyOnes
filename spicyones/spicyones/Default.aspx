@@ -18,7 +18,7 @@
             <p>
                 Click learn more to retrive info about a the season and episode a guest appeared on!</p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
+                <a class="btn btn-default" href="WebForm2">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
