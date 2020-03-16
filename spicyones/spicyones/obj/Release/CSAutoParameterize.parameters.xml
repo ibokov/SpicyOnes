@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="spicyonesConnectionString-Web.config Connection String" description="spicyonesConnectionString Connection String used in web.config by the application to access the database." defaultValue="server=spicyones.mysql.database.azure.com;user id=spicy@spicyones;password=Aliens$1234;persistsecurityinfo=True;database=spicyones" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\ilyab\\OneDrive\ -\ UW\\TCSS\ 445\\SpicyOnes\\spicyones\\spicyones\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='spicyonesConnectionString']/@connectionString" />
-  </parameter>
-</parameters>

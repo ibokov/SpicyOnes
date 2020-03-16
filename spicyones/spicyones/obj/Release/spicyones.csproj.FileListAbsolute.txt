@@ -183,3 +183,4 @@ C:\Users\mtchea\Source\Repos\SpicyOnes\spicyones\spicyones\obj\Release\spicyones
 C:\Users\mtchea\Source\Repos\SpicyOnes\spicyones\spicyones\obj\Release\spicyones.csproj.CopyComplete
 C:\Users\mtchea\Source\Repos\SpicyOnes\spicyones\spicyones\obj\Release\spicyones.dll
 C:\Users\mtchea\Source\Repos\SpicyOnes\spicyones\spicyones\obj\Release\spicyones.pdb
+C:\Users\ilyab\OneDrive - UW\TCSS 445\SpicyOnes\spicyones\spicyones\obj\Release\spicyones.csprojAssemblyReference.cache

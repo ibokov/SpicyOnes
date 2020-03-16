@@ -489,7 +489,7 @@ WHERE G.Episode_ID IN (SELECT G.EPISODE_ID
 -- Query 6 
 -- Purpose: Return a list of the most frequent hot sauces to be featured on the show. 
 -- Expected: A table that lists the Hot sauce name(Hot_Sacue), and how often the hotsauce was featured on the show (Frequency).
-SELECT H.HS_Name as Hot_Sauce, C.NUM_HS_Produced as Frequency
+SELECT H.HS_Name as 'Hot Sauce', C.NUM_HS_Produced as Frequency
 FROM HOTSAUCE H
 JOIN COMPANY C ON C.Company_ID = H.Comp_ID
 WHERE C.Num_HS_Produced > 1;

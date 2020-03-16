@@ -39,5 +39,24 @@ namespace spicyones
 
             connect.Close();
         }
+
+        protected void Query1_Click(object sender, EventArgs e)
+        {
+            connect.Open();
+            string find = "select * " +
+                "from hotsauce " +
+                "where HS_Name like '%" + TextBox1.Text + "%'";
+            MySqlDataAdapter da = new MySqlDataAdapter(find, connect);
+
+
+            DataSet ds = new DataSet();
+            da.Fill(ds, "HS_Name");
+            GridView1.DataSource = ds;
+
+            GridView1.DataBind();
+            GridView1.Visible = true;
+
+            connect.Close();
+        }
     }
 }
