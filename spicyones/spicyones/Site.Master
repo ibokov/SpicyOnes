@@ -17,6 +17,7 @@
 
 </head>
 <body>
+    
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -38,26 +39,30 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/">Spicy Ones</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a class="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                <a class="navbar-brand" href="./">Spicy Ones</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                     <span class="navbar-toggler-icon"></span>
+                 </button>
+                  
+                <div class="collapse navbar-collapse"> 
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./">Home</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="About.aspx">About</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="Contact.aspx">Contact</a>
+                      </li>    
                     </ul>
-                </div>
-            </div>
-        </div>
+                  </div>
+                </nav>
+
+        
         <div class="container body-content">
+            <p class ="text-white-50 bg-dark"></p>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

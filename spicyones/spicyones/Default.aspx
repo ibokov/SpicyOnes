@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="spicyones._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="false" CodeBehind="Default.aspx.cs" Inherits="spicyones._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
         <h1><center>Spicy Ones</center></h1>
         <p class="lead"><center>Spicy Ones is a Hot Sauce database inspired by and designed for the series &quot;Hot Ones&quot;</center></p>
-        <p><center><a href="About.aspx" class="btn btn-outline-danger btn sm" href="WebForm1.aspx">Learn more &raquo;</a></center></p>
+        <p><center><a href="About.aspx" class="btn btn-outline-danger btn sm" href="Query1.aspx">Learn more &raquo;</a></center></p>
         <p>&nbsp;</p>
         <p>
             <center><img src="Images/Logo/logo.png" style="margin: 0 auto; width: 75%;" /></center></p>
@@ -18,14 +18,14 @@
             <p>
                 Click learn more to retrive info about a the season and episode a guest appeared on!</p>
             <p>
-                <a class="btn btn-outline-danger btn sm" href="WebForm1.aspx">Learn more &raquo;</a>
+                <a class="btn btn-outline-danger btn sm" href="Query1.aspx">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
             <h2><center>Some sauces have appeared on the show multiple times!</center></h2>
             <p>The link below will display reoccurring hot sauces from Hot Ones.</p>
             <p>
-                <a class="btn btn-outline-danger btn sm" href="WebForm1.aspx">Learn more &raquo;</a>
+                <a class="btn btn-outline-danger btn sm" href="Query2.aspx">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
@@ -34,20 +34,23 @@
                 Here are some of the sauces with a scoville level greater than 200,000 units.
             </p>
             <p>
-                <a class="btn btn-outline-danger btn sm" href="WebForm1.aspx">Learn more &raquo;</a>
+                <a class="btn btn-outline-danger btn sm" href="Query3.aspx">Learn more &raquo;</a>
             </p>
         </div>
     </div>
     <br />
-    <h3>Search by Hot Sauce name below to see if&nbsp;it has been featured on Hot Ones!</h3>
+   
+    <h3><center>Search by Hot Sauce name below to see if&nbsp;it has been featured on Hot Ones!</center></h3>
     <div class="form-inline">
-        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control mb-8 mr-sm-8"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Height="40px" OnClick="Button1_Click" Text="Search" Width="159px" CssClass="btn btn-primary"/>
-    </div>    
+        
+        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control mb-8 mr-sm-8" style="text-align:center" widht ="80%"></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" Height="40px" OnClick="Button1_Click" Text="Search" Width="159px" CssClass="btn btn-outline-danger btn sm"/>
+        
+        </div>    
     
     <br />
     <br />
-    <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" CssClass="table table-hover">
+    <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" CssClass="table table-hover" AutoGenerateColumns="False">
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
             <asp:TemplateField HeaderText="Hotsauce ID">

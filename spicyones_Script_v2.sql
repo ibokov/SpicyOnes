@@ -438,12 +438,13 @@ ORDER BY s.Season_Number;
 -- Query 2 
 -- Purpose: Use a nested query with the ANY operator and a GROUP BY clause to get 
 -- Expected: A table that summarizes all the hotsauce id from season table that have a scoville level higher than 200000. 
-SELECT HS_ID
-FROM FEATURED_IN
-WHERE HS_ID = ANY ( SELECT HS_ID
+SELECT h.HS_Name, h.HS_Scoville
+FROM FEATURED_IN f, HOTSAUCE h
+WHERE f.HS_ID = ANY ( SELECT HS_ID
                     FROM HOTSAUCE
                     WHERE HS_Scoville > 200000)
-GROUP BY HS_ID;
+				AND f.HS_ID = h.HS_ID
+GROUP BY h.HS_Name;
 
 
 -- Query 3 
