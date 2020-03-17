@@ -1,21 +1,17 @@
 # Spicy Ones
 
-Based on the YouTube series Hot Ones, Spicy Ones is a database and website that displays the hot sauces and celebrities featured on the YouTube show. Our corresponding website allows fans to interact with our database via seeing the results of interesting queries and seeing information about hot sauces that they search for. 
+![Spicy Ones logo](screenshots/logo.png "Spicy Ones logo")
 
-## Contents 
+Based on the YouTube series "Hot Ones", Spicy Ones is a database and website that displays the hot sauces and celebrities featured on the YouTube show. Our corresponding website allows fans to interact with our database via seeing the results of interesting queries and seeing information about hot sauces that they search for. 
+
+## Contents
   - [Getting Started](#getting-started)
+    - [Quirks and Notes](#quirks-and-notes)
     - [Prerequisites](#prerequisites)
-    - [Installing](#installing)
-  - [Running the tests](#running-the-tests)
-    - [Break down into end to end tests](#break-down-into-end-to-end-tests)
-    - [And coding style tests](#and-coding-style-tests)
-  - [Deployment](#deployment)
+    - [Running Queries](#running-queries)
   - [Built With](#built-with)
-  - [Contributing](#contributing)
-  - [Versioning](#versioning)
-  - [Authors](#authors)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
+  - [Authors and Contributors](#authors-and-contributors)
+
 
 
 ## Getting Started
