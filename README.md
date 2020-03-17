@@ -48,7 +48,7 @@ Brief explanations of some of these resources are featured [here](#built-with).
 * User name: `spicy@spicyones`
 * Password: `Aliens$1234`
 ![Third install screenshot](screenshots/install3.jpg "step 4") 
-5. Now, you can run the queries via MySQL workbench or Visual Studio! 
+5. Use the same login information from step 4 to log into the MySQL workbench. 
 
 
 ## Built With
