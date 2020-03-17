@@ -8,8 +8,11 @@
         <p><center><a href="About.aspx" class="btn btn-outline-danger btn sm" href="Query1.aspx">Learn more &raquo;</a></center></p>
         <p>&nbsp;</p>
         <p>
-            <center><img src="Images/Logo/logo.png" style="margin: 0 auto; width: 75%;" /></center></p>
-        <p>&nbsp;</p>
+            <center><img src="Images/Logo/logo.png" style="margin: 0 auto; width: 75%;" /></center>
+        <center>
+            <br />
+            <br />
+            <asp:ImageButton ID="ImageButton1" runat="server" style="margin: 0 auto; height:30%; width: 55%;" ImageUrl="~/Images/hall_shame.jpg" OnClick="ImageButton1_Click" PostBackUrl="~/Query4.aspx" /></center>
     </div>
 
     <div class="row">

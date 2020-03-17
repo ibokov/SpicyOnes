@@ -158,7 +158,9 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\hall_shame.jpg" />
     <Content Include="Images\Logo\logo.png" />
+    <Content Include="Images\Logo\logo_pep.png" />
     <Content Include="Query2.aspx" />
     <Content Include="Query3.aspx" />
     <Content Include="Query4.aspx" />

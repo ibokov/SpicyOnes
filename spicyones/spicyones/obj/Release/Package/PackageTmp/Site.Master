@@ -13,7 +13,8 @@
     </asp:PlaceHolder>
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Images/Logo/logo_pep.png" rel="shortcut icon" type="image/x-icon" />
+    <!-- > <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
 
 </head>
 <body>
