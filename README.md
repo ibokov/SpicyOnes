@@ -2,7 +2,9 @@
 
 ![Spicy Ones logo](screenshots/logo.png "Spicy Ones logo")
 
-Based on the YouTube series "Hot Ones", Spicy Ones is a database and website that displays the hot sauces and celebrities featured on the YouTube show. Our corresponding website allows fans to interact with our database via seeing the results of interesting queries and seeing information about hot sauces that they search for. 
+Based on the YouTube series "Hot Ones", [Spicy Ones](http://www.spicyones.com/) is a database and website that displays the hot sauces and celebrities featured on the YouTube show. Our corresponding website allows fans to interact with our database via seeing the results of interesting queries and seeing information about hot sauces that they search for. 
+
+Visit us at http://www.spicyones.com/! 
 
 ## Contents
   - [Getting Started](#getting-started)
@@ -36,7 +38,7 @@ Brief explanations of some of these resources are featured [here](#built-with).
 
 ### Running Queries 
 
-1. Install all of the [prerequisites](#prerequisites) materials. 
+1. Install all of the [prerequisite](#prerequisites) materials. 
 2. Open Visual Studio and then click Tools > Connect to Database
 ![First install screenshot](screenshots/install1.png "step 2")
 3. Select "MySQL Database" with the .NET Framework data provider, as shown below 
@@ -59,7 +61,7 @@ Brief explanations of some of these resources are featured [here](#built-with).
 
 
 
-## Authors and Contributors 
+## Authors
 
 * [Ilya Bokov](https://github.com/ibokov)
 * [Mariko Briggs](https://github.com/marikobriggs) 
