@@ -1,0 +1,9 @@
+// All this information and how to loggin and access the database can be found in the Read ME.
+
+www.spicyones.com
+
+MySQL login SpicyOnes (we used MySQL Workbench)
+
+Server Name: spicyones.mysql.database.azure.com
+Server admin login name: spicy@spicyones
+Password: Aliens$1234
