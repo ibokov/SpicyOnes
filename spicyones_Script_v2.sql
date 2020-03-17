@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`COMPANY` (
   `Company_ID` INT NOT NULL,
   `Company_Name` VARCHAR(100) NOT NULL,
   `HQ_Location` VARCHAR(50) NOT NULL,
-  `Established_Date` DATETIME NOT NULL,
+  `Established_Date` YEAR(4) NOT NULL,
   `Num_HS_Produced` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`Company_ID`))
 ENGINE = InnoDB;
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS `SPICYONES`.`HOTSAUCE` (
   `HS_ID` INT NOT NULL,
   `HS_Name` VARCHAR(50) NOT NULL,
   `HS_Scoville` INT UNSIGNED NOT NULL,
-  `Creation_Date` DATETIME NULL,
-  `Pepper_ID` CHAR(5) NOT NULL,
+  `Creation_Date` YEAR(4) NULL,
+  `Pepper_ID` CHAR(9) NOT NULL,
   `Comp_ID` INT NOT NULL,
   PRIMARY KEY (`HS_ID`),
   INDEX `Comp_ID_idx` (`Comp_ID` ASC),

@@ -16,10 +16,10 @@
         </asp:TemplateField>
         <asp:TemplateField HeaderText="Frequency">
             <ItemTemplate>  
-                <asp:Label runat="server" Text='<%# Eval("NUM_HS_Produced") %>'></asp:Label>  
+                <asp:Label runat="server" Text='<%# Eval("Frequency") %>'></asp:Label>  
             </ItemTemplate>
             <EditItemTemplate>
-                <asp:TextBox ID="Frequency" runat="server" Text='<%# Eval("NUM_HS_Produced") %>'></asp:TextBox>
+                <asp:TextBox ID="Frequency" runat="server" Text='<%# Eval("Frequency") %>'></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
         
