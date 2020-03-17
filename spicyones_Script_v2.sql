@@ -425,26 +425,27 @@ Values (7, 29051, 1);
 -- *****************************************************
 
 
--- Query 1 (DOES NOT WORK RIGHT NOW, we have appears_in table that does this already.)
+-- Query 1
 -- Purpose: To get Hot Ones Guest with their appropriate Season and Episode.
 -- Expected: Returns a table that displays a Hot Ones Guest with their appropriate Season and Episode.
-SELECT DISTINCT g.Guest_Name, e.Episode_ID, s.Season_Number
+SELECT DISTINCT g.Guest_Name as 'Guest Name', e.Episode_ID as 'Episode ID', s.Season_Number as 'Season'
 FROM GUEST g
-INNER JOIN EPISODES e ON e.Episode_ID = g.Episode_ID -- g.Episode_ID doesn't exists now.
-INNER JOIN SEASON s ON s.Season_Number = e.Season_Number
+INNER JOIN APPEARS_IN a ON a.Guests_ID = g.Guest_ID -- g.Episode_ID doesn't exists now.
+INNER JOIN EPISODES e ON a.Episodes_ID = e.Episode_ID
+INNER JOIN SEASON s ON s.season_number = e.Season_Num
+WHERE g.GUEST_NAME = 'Logic'
 ORDER BY s.Season_Number;
 
 
 -- Query 2 
 -- Purpose: Use a nested query with the ANY operator and a GROUP BY clause to get 
 -- Expected: A table that summarizes all the hotsauce id from season table that have a scoville level higher than 200000. 
-SELECT h.HS_Name, h.HS_Scoville
-FROM FEATURED_IN f, HOTSAUCE h
-WHERE f.HS_ID = ANY ( SELECT HS_ID
+SELECT HS_ID
+FROM FEATURED_IN
+WHERE HS_ID = ANY ( SELECT HS_ID
                     FROM HOTSAUCE
                     WHERE HS_Scoville > 200000)
-				AND f.HS_ID = h.HS_ID
-GROUP BY h.HS_Name;
+GROUP BY HS_ID;
 
 
 -- Query 3 
@@ -468,85 +469,96 @@ SELECT *
 FROM HOTSAUCE 
 RIGHT JOIN PRIMARY_PEPPER ON HOTSAUCE.PEPPER_ID = PRIMARY_PEPPER.PEP_ID;
 
--- Query 5 (DOESN'T WORK)
+-- Query 5 
 -- Purpose: Display all of the Musicians and Comedians featured on the show.
 -- Expected: A table that shows the guest names, the episode id and season of the musicians and comedians that were featured on the show.
-SELECT G.GUEST_NAME AS Guest_Name, G.EPISODE_ID, E.SEASON_NUMBER
-FROM GUEST G JOIN EPISODES E ON E. EPISODE_ID = G.EPISODE_ID
-WHERE G.Episode_ID IN (SELECT G.EPISODE_ID
-                    FROM GUESTS G
-                    WHERE G.Profession = 'Musician')
+SELECT G.Guest_Name, E.Episode_ID, S.Season_Number
+FROM GUEST G
+JOIN APPEARS_IN A ON G.Guest_ID = A.Guests_ID
+JOIN EPISODES E ON A.Episodes_ID = E.Episode_ID
+JOIN SEASON S ON E.Season_Num = S.Season_Number
+WHERE Episode_ID  IN (SELECT A.Episodes_ID
+					 FROM APPEARS_IN A, GUEST
+                     WHERE G.Profession = 'Musician')
 
 UNION
 
-SELECT G.GUEST_NAME AS Guest_Name, G.EPISODE_ID, E.SEASON_NUMBER
-FROM GUESTS G JOIN EPISODES E ON E. EPISODE_ID = G.EPISODE_ID
-WHERE G.Episode_ID IN (SELECT G.EPISODE_ID
-                    FROM GUESTS G
-                    WHERE G.Profession = 'Comedian');
-
+SELECT G.Guest_Name, E.Episode_ID, S.Season_Number
+FROM GUEST G
+JOIN APPEARS_IN A ON G.Guest_ID = A.Guests_ID
+JOIN EPISODES E ON A.Episodes_ID = E.Episode_ID
+JOIN SEASON S ON E.Season_Num = S.Season_Number
+WHERE Episode_ID  IN (SELECT A.Episodes_ID
+					 FROM APPEARS_IN A, GUEST
+                     WHERE G.Profession = 'Comedian');
 
 
 -- Query 6 
 -- Purpose: Return a list of the most frequent hot sauces to be featured on the show. 
 -- Expected: A table that lists the Hot sauce name(Hot_Sacue), and how often the hotsauce was featured on the show (Frequency).
-SELECT H.HS_Name as 'Hot Sauce', C.NUM_HS_Produced as Frequency
+SELECT H.HS_Name as Hot_Sauce, C.NUM_HS_Produced as Frequency
 FROM HOTSAUCE H
 JOIN COMPANY C ON C.Company_ID = H.Comp_ID
 WHERE C.Num_HS_Produced > 1;
 
 
--- Query 7 (DOENS'T WORKS)
+-- Query 7
 -- Purpose: Return percentage of failures per profession.
 -- Expected: A table that returns the quantity of each profession along with how many have failed and finally a failure percentage. 
-SELECT Profession, Count(Profession) 'Quantity', 
-    (SELECT COUNT(HS_ID_FAIL)
-	 FROM GUEST
-	 WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession) 'Failures', CAST(((SELECT COUNT(HS_ID_FAIL)
-																				  FROM GUESTS
-																				  WHERE HS_ID_FAIL <> 'NULL' AND Profession = g.Profession)/Count(Profession))*100 AS DECIMAL(18,2))+'%' as 'Fail Percentage'
-FROM GUESTS g
+SELECT Profession 'Profession', 
+        Count(Profession) 'Quantity',
+        (SELECT COUNT(Profession) 
+        FROM guest g2 
+        WHERE g2.GUEST_ID = (SELECT GUEST_ID 
+                            FROM hall_of_shame h 
+                            WHERE g2.GUEST_ID = h.GUEST_ID AND g2.Profession = g.Profession
+                            GROUP BY Profession))'Failures',
+        CAST(((SELECT COUNT(Profession) 
+        FROM guest g2 
+        WHERE g2.GUEST_ID = (SELECT GUEST_ID 
+                            FROM hall_of_shame h 
+                            WHERE g2.GUEST_ID = h.GUEST_ID AND g2.Profession = g.Profession
+                            GROUP BY Profession))/COUNT(Profession))*100 AS DECIMAL(18,2))+'%' as 'Fail Percentage'
+FROM guest g
 GROUP BY g.Profession;
 
 
--- Query 8 (DOESN'T WORK)
+-- Query 8
 -- Purpose: Show the relationship between fail rate, hot sauce scoville, and pepper scoville. 
 -- Expected: A table that displays fail rate of sauce and the scoville rating of the sauce and main pepper. Ordered by fail rate. 
-SELECT HOTSAUCE.HSNAME AS 'Hot Sauce', 
-	   HOTSAUCE.SFR AS 'Hot Sauce Fail Rate', 
-       HOTSAUCE.HS_Scoville AS 'Hot Sauce Scoville', 
-       PEPPER.Pep_Scoville AS 'Constituent Pepper Scoville'
-FROM HOTSAUCE, PRIMARY_PEPPER 
-WHERE HOTSAUCE.Pepper_ID = PEPPER.Pep_ID 
-ORDER BY HOTSAUCE.SFR DESC, HOTSAUCE.HS_Scoville DESC;
+SELECT H.HS_Name, H.HS_Scoville, P.Pep_Scoville, HALL.Fail_Count
+FROM HOTSAUCE H JOIN PRIMARY_PEPPER P ON H.Pepper_ID = P.Pep_ID
+JOIN HALL_OF_SHAME HALL ON HALL.HS_FAIL_ID = H.HS_ID
+WHERE H.HS_ID IN (SELECT HALL.HS_Fail_ID
+				 FROM HALL_OF_SHAME HALL);
 
 
--- Query 9 (DOESN'T WORK)
+-- Query 9
 -- Purpose: Compare the different seasons of the show from multiple tables.
 -- Expected: Return a table showing the average scoville of sauces for each season, most used pepper for each season’s sauces, and number of failures in the season. 
-SELECT E.EPISODE_ID AS Episode_Number, 
-       E.GUEST_COMPLETION AS Guest_Completion,
-	   G.Guest_Name AS Guest_Name,
-       H.HSName AS Hotsauce_Name
-FROM EPISODES E JOIN GUESTS G ON E.EPISODE_ID = G.EPISODE_ID
-JOIN HOTSAUCE H ON H.HS_ID = G.HS_ID_FAIL
-WHERE E.Guest_Completion = 'FAIL'; 
+SELECT season.Season_Number as "Season", guest.Guest_Name as "Guest", episodes.Ep_Name as "Episode Name", hotsauce.HS_Name as "Failed Hotsauce Name"
+From guest
+INNER JOIN appears_in ON guest.Guest_ID = appears_in.GUESTS_ID
+INNER JOIN episodes ON appears_in.EPISODES_ID = episodes.Episode_ID
+INNER JOIN hall_of_shame ON guest.Guest_ID = hall_of_shame.GUEST_ID
+INNER JOIN season ON episodes.Season_Num = season.Season_Number
+INNER JOIN featured_in ON season.Season_Number = featured_in.Season_Number
+INNER JOIN hotsauce ON featured_in.HS_ID = hotsauce.HS_ID
+WHERE hall_of_shame.GUEST_ID = guest.Guest_ID AND hall_of_shame.HS_Fail_ID = hotsauce.HS_ID
+ORDER BY Season ASC;
 
 
--- Query 10 (DOESN'T WORK)
+-- Query 10
 -- Purpose: Show the hot sauce that was created the longest time before its appearance on an episode.
 -- Expected: Return a table with one hot sauce and the number of years between its creation and appearance on the episode.
 
-Select DISTINCT HotsauceName, Years_Created_Before_Showcase
-FROM (SELECT h.HSName as 'HotsauceName', CAST(year(e.Ep_Airdate) as SIGNED)- CAST(h.Creation_Date as SIGNED) AS 'Years_Created_Before_Showcase'
-		FROM HOTSAUCE h
-		JOIN SEASON s ON h.HS_ID=s.HS_ID
-		JOIN EPISODES e ON e.Season_Number = s.Season_Number) AS Aliens
-WHERE Years_Created_Before_Showcase = (SELECT MAX(Years_Created_Before_Showcase)
-										FROM (SELECT h.HSName as 'HotsauceName', CAST(year(e.Ep_Airdate) as SIGNED)- CAST(h.Creation_Date as SIGNED) AS 'Years_Created_Before_Showcase'
-											  FROM HOTSAUCE h
-											  JOIN SEASON s ON h.HS_ID=s.HS_ID
-											  JOIN EPISODES e ON e.Season_Number = s.Season_Number) AS Aliens2);
+SELECT hotsauce.HS_Name as 'Hotsauce Name', hotsauce.Creation_Date as 'Year of Creation', EXTRACT(YEAR FROM episodes.Ep_Airdate) as 'Year First Featured', MIN(CAST(EXTRACT(YEAR FROM episodes.Ep_Airdate) as SIGNED)-CAST(hotsauce.Creation_Date as SIGNED)) as 'Years'
+FROM episodes
+INNER JOIN featured_in ON episodes.Season_Num = featured_in.Season_Number
+INNER JOIN hotsauce ON featured_in.HS_ID = hotsauce.HS_ID
+GROUP BY hotsauce.HS_Name
+ORDER BY Years DESC
+LIMIT 1;
 
                                         
 
