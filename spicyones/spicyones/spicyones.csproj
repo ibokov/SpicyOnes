@@ -161,6 +161,7 @@
     <Content Include="Images\Logo\logo.png" />
     <Content Include="Query2.aspx" />
     <Content Include="Query3.aspx" />
+    <Content Include="Query4.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -334,6 +335,13 @@
     </Compile>
     <Compile Include="Query3.aspx.designer.cs">
       <DependentUpon>Query3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Query4.aspx.cs">
+      <DependentUpon>Query4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Query4.aspx.designer.cs">
+      <DependentUpon>Query4.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

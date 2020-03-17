@@ -6,10 +6,11 @@
 
     
     <center><h1><%: Title %></h1></center>
+    <h2>Take a look at Hot Ones' reoccurring sauces!</h2>
     <p>&nbsp;</p>
         
         <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" CssClass="btn btn-outline-danger dropdown-toggle">
-            
+            <asp:ListItem Value="-1">Select Guest</asp:ListItem>
         </asp:DropDownList>
         <br />
         <br />

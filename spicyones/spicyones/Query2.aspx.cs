@@ -16,7 +16,13 @@ namespace spicyones
         protected void Page_Load(object sender, EventArgs e)
         {
             MySqlConnection con = new MySqlConnection(ConfigurationManager.ConnectionStrings["spicyonesConnectionString"].ConnectionString);
-            MySqlCommand cmd = new MySqlCommand("SELECT H.HS_Name, C.NUM_HS_Produced FROM HOTSAUCE H JOIN COMPANY C ON C.Company_ID = H.Comp_ID WHERE C.Num_HS_Produced > 1", con);
+            MySqlCommand cmd = new MySqlCommand("SELECT HS_Name, SUM(featured_in.Num_times_featured) as 'Frequency'" +
+                                                "FROM hotsauce h "+
+                                                "INNER JOIN featured_in ON h.HS_ID = featured_in.HS_ID "+
+                                                "WHERE(SELECT SUM(featured_in.Num_times_featured) FROM featured_in f WHERE f.HS_ID = h.HS_ID) > 1 "+
+                                                "GROUP BY HS_Name "+
+                                                "ORDER BY Frequency DESC", con);
+
             MySqlDataAdapter Adpt = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             Adpt.Fill(dt);

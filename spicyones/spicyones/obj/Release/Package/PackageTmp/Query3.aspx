@@ -1,10 +1,11 @@
-﻿<%@ Page Title="Query03" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Query3.aspx.cs" Inherits="spicyones.Query3" Theme ="Theme1" %>
+﻿<%@ Page Title="The Hottest Sauces" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Query3.aspx.cs" Inherits="spicyones.Query3" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %></h2>
+    <center><h1><%: Title %></h1></center>
+    <h2>Here are some of the sauces with a scoville level greater than 200,000 units!</h2>
     <br />
         <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#E7E7FF" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" BorderStyle="None" CssClass ="table table-dark table-striped" AutoGenerateColumns="false">
-            <AlternatingRowStyle BackColor="#F7F7F7" />
+            <AlternatingRowStyle BackColor="#F7F7F7" ForeColor="#1E1E1E" />
             <Columns>
             <asp:TemplateField HeaderText="Hotsauce Name">
             <ItemTemplate>
@@ -24,11 +25,13 @@
             
         </Columns>
 
-            <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
-            <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
-            <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
-            <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
-            <SelectedRowStyle BackColor="#738A9C" ForeColor="#F7F7F7" Font-Bold="True" />
+            <EditRowStyle ForeColor="#1E1E1E" />
+
+            <FooterStyle BackColor="#B5C7DE" ForeColor="#1E1E1E" />
+            <HeaderStyle BackColor="#FF0044" Font-Bold="True" ForeColor="#1E1E1E" />
+            <PagerStyle BackColor="#E7E7FF" ForeColor="#1E1E1E" HorizontalAlign="Right" />
+            <RowStyle BackColor="#FDD38F" ForeColor="#1E1E1E" />
+            <SelectedRowStyle BackColor="#738A9C" ForeColor="#1E1E1E" Font-Bold="True" />
             <SortedAscendingCellStyle BackColor="#F4F4FD" />
             <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
             <SortedDescendingCellStyle BackColor="#D8D8F0" />
@@ -36,5 +39,5 @@
         </asp:GridView>
     <br />
     <br />
-    The Last Dab is 800 times hotter than a jalapeno which only has 2500 scoville.
+    <h2>The Last Dab is 800 times hotter than a jalapeno which only has 2500 scoville.</h2>
  </asp:Content>

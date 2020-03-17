@@ -35,6 +35,7 @@ namespace spicyones
                         DropDownList1.DataTextField = "Guest_Name";
                         DropDownList1.DataValueField = "Guest_Name";
                         DropDownList1.DataBind();
+                        DropDownList1.Items.Insert(0, new ListItem("Select a Guest", "NA"));
                         connect.Close();
                     }
                 }
