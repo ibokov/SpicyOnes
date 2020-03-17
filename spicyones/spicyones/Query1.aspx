@@ -6,7 +6,7 @@
 
     
     <center><h1><%: Title %></h1></center>
-    <h2>Take a look at Hot Ones' reoccurring sauces!</h2>
+    <h2>Check out details about a guest's appearance on the series!</h2>
     <p>&nbsp;</p>
         
         <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" CssClass="btn btn-outline-danger dropdown-toggle">
