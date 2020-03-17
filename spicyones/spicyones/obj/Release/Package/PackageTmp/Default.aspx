@@ -12,7 +12,8 @@
         <center>
             <br />
             <br />
-            <asp:ImageButton ID="ImageButton1" runat="server" style="margin: 0 auto; height:30%; width: 55%;" ImageUrl="~/Images/hall_shame.jpg" OnClick="ImageButton1_Click" PostBackUrl="~/Query4.aspx" /></center>
+            <formview><asp:ImageButton ID="ImageButton2" runat="server" style="margin: 0 auto; height:30%; width: 55%;" ImageUrl="~/Images/hall_shame.jpg" OnClick="ImageButton1_Click" PostBackUrl="~/Query4.aspx" /></center></formview>
+           <!-- <asp:ImageButton ID="ImageButton1" runat="server" style="margin: 0 auto; height:30%; width: 55%;" ImageUrl="~/Images/hall_shame.jpg" OnClick="ImageButton1_Click" PostBackUrl="~/Query4.aspx" /></center> -->
     </div>
 
     <div class="row">
